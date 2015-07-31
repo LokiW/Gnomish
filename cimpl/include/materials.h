@@ -22,6 +22,9 @@ typedef struct {
 
     //Color
     float r,g,b;
+
+    //TODO: Transparancy
+    char visibility;
 } material;
 
 /*
@@ -36,5 +39,10 @@ void loadMaterials (void);
  */
 material getMaterial (voxel id);
 
+/*
+ * Indicates if a material can stack. So you don't have pillars of water.
+ * TODO make this better as it is currently terrible
+ */
+char canStack (voxel id);
 
 #endif

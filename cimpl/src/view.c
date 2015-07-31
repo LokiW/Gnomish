@@ -12,7 +12,7 @@
 // Using OpenGL version 2.1 for support of more graphics cards
 #include <GL/glut.h>
 
-#define Y_VAL -5.0
+#define Z_VAL -5.0
 
 void display (void) {
     glClear(GL_COLOR_BUFFER_BIT);
@@ -27,15 +27,15 @@ void display (void) {
     drawWorld();
 
     //Move brush to player location
-    glTranslatef(cur.x, cur.y, Y_VAL);
+    glTranslatef(cur.x, cur.y, Z_VAL);
     glRotatef((cur.angle*360)/(2*M_PI),0.0,0.0,1.0);
 
     //Draw player
     glBegin(GL_TRIANGLES);
     glColor3f(1.0,0.0,0.0);
-    glVertex3f(-0.4,0.2,Y_VAL);
-    glVertex3f(0.2,0.0,Y_VAL);
-    glVertex3f(-0.4,-0.2,Y_VAL);
+    glVertex3f(-0.4,0.2,Z_VAL);
+    glVertex3f(0.2,0.0,Z_VAL);
+    glVertex3f(-0.4,-0.2,Z_VAL);
     glEnd();
     glFlush();          //Finish rendering
 }
@@ -43,31 +43,51 @@ void display (void) {
 void drawWorld() {
     int x = worldXDim();
     int y = worldYDim();
+    int z = worldZDim();
+
+    int depth = Z_VAL - 0.1;
+
+    int i,j,k = 0;
 
     material out;
-    glTranslatef(0,0,Y_VAL -0.1);
+    glTranslatef(0,0,depth);
 
-    int i = 0;
     for (i = 0; i < x; i++) {
         glBegin(GL_TRIANGLE_STRIP);
         
-        int j = 0;
-
-        out = materialAtPoint(i,j,0);
+        j = 0;  
+        out = materialAtPoint(i,j,k);
         glColor3f(out.r, out.g, out.b);
-        glVertex3f(i,j,Y_VAL -0.1);
-        glVertex3f(i+1,j,Y_VAL -0.1);
+        glVertex3f(i,j,depth);
+        glVertex3f(i+1,j,depth);
 
         for (j = 0; j < y; j++) {
-            out = materialAtPoint(i, j, 0);
+            out = materialAtPoint(i, j, k);
             //printf("color r%f, g%f, b%f, of %s ",out.r, out.g, out.b, out.name);
-
             glColor3f(out.r, out.g, out.b);
-            glVertex3f(i,j+1,Y_VAL - 0.1);
-            glVertex3f(i+1,j+1,Y_VAL -0.1);
+            glVertex3f(i,j+1,depth);
+            glVertex3f(i+1,j+1,depth);
 
         }
         glEnd();
+    }
+    
+    for (k = 1; k < z; k++) {
+        depth = Z_VAL - 0.1 + k;
+	for (i = 0; i < x; i++) {
+	    for (j = 0; j < y; j++) {
+		out = materialAtPoint(i,j,k);
+		if (out.visibility) {
+		    glBegin(GL_QUADS);
+		    glColor3f(out.r, out.g, out.b);
+		    glVertex3f(i,j,depth);
+		    glVertex3f(i+1,j,depth);
+		    glVertex3f(i+1,j+1,depth);
+		    glVertex3f(i,j+1,depth);
+		    glEnd();
+		}
+	    }
+	}
     }
 }
 
