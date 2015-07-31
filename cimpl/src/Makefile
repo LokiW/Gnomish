@@ -16,7 +16,7 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 $(ODIR)/%.o: %.c $(DEPS)
 		$(CC) -c -o $@ $< $(CFLAGS)
 
-gnomish: $(OBJ)
+gnomish.out: $(OBJ)
 		gcc -o $@ $^ $(CFLAGS) $(LIBS)
 
 .PHONY: clean
