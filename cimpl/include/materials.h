@@ -17,6 +17,9 @@ typedef struct {
  * A type for materials, such as dirt, rock, ect.., 
  */
 typedef struct {
+    //For printing purposes
+    char *name;
+
     //Color
     float r,g,b;
 } material;
