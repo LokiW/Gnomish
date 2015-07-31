@@ -41,7 +41,7 @@ void display (void) {
 }
 
 void drawWorld() {
-    /*int x = worldXDim();
+    int x = worldXDim();
     int y = worldYDim();
 
     material out;
@@ -56,20 +56,20 @@ void drawWorld() {
         out = materialAtPoint(i,j,0);
         glColor3f(out.r, out.g, out.b);
         glVertex3f(i,j,Y_VAL -0.1);
-        glVertex3f(i,j+1,Y_VAL -0.1);
+        glVertex3f(i+1,j,Y_VAL -0.1);
 
         for (j = 0; j < y; j++) {
             out = materialAtPoint(i, j, 0);
             //printf("color r%f, g%f, b%f, of %s ",out.r, out.g, out.b, out.name);
 
             glColor3f(out.r, out.g, out.b);
-            glVertex3f(i+1,j+1,Y_VAL - 0.1);
-            glVertex3f(i+1,j,Y_VAL -0.1);
+            glVertex3f(i,j+1,Y_VAL - 0.1);
+            glVertex3f(i+1,j+1,Y_VAL -0.1);
 
         }
         glEnd();
-    }*/
-
+    }
+/*
     glTranslatef(0,0,Y_VAL-0.1);
     glBegin(GL_TRIANGLE_STRIP);
     glColor3f(0.0,0.0,1.0);
@@ -80,7 +80,7 @@ void drawWorld() {
 
     glColor3f(0.0,1.0,0.0);
     glVertex3f(10.0,0.0,Y_VAL-0.1);
-    glEnd();
+    glEnd();*/
 }
 
 
