@@ -45,6 +45,7 @@ void movePlayer (float distance) {
 // 3D array of Voxels, each is a 1x1x1 cube
 voxel world[WORLD_X_DIM][WORLD_Y_DIM][WORLD_Z_DIM];
 
+//Debugging function to print world information to consol
 void printWorld (void) {
     int i = 0;
     for (i = 0; i < WORLD_Y_DIM; i++) {

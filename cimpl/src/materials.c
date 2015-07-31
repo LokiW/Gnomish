@@ -41,6 +41,7 @@ void loadMaterials (void) {
 
 material getMaterial (voxel id) {
     if (id.id > NUM_MATERIALS) {
+	//TODO do real error handling
         printf("Error: voxel with id %d greater than number of materials: %d", id.id, NUM_MATERIALS);
     }
 
