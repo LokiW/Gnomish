@@ -49,7 +49,7 @@ void movePlayer (float distance) {
 
     float adjustDist = distance/2;
 
-    while (!playerInWorld(cur) || materialAtPlayer(tempX, tempY, cur.z).visibility) {
+    while (!coordinatesInWorld(tempX, tempY, cur.z) || materialAtPlayer(tempX, tempY, cur.z).visibility) {
 	tempX -= cos(cur.angle)*adjustDist;
 	tempY -= sin(cur.angle)*adjustDist;
     }
@@ -65,9 +65,6 @@ void jumpPlayer (float height, float distance) {
 //    cur.z += height;
 //    movePlayer(distance);
 }
-
-
-
 
 
 
@@ -125,12 +122,12 @@ void randomWorld (void) {
     //printWorld();
 }
 
-char playerInWorld (player p) {
-	if (p.x < 0 || p.x >= WORLD_X_DIM) {
+char coordinatesInWorld (float x, float y, float z) {
+	if (x < 0 || (int) x >= WORLD_X_DIM) {
 	    return 0;
-	} else if (p.y < 0 || p.y >= WORLD_Y_DIM) {
+	} else if (y < 0 || (int) y >= WORLD_Y_DIM) {
 	    return 0;
-	} else if (p.z < 0 || p.z >= WORLD_Z_DIM) {
+	} else if (z < 0 || (int) z >= WORLD_Z_DIM) {
 	    return 0;
 	} 
         return 1;
@@ -141,10 +138,9 @@ material materialAtPlayer (float x, float y, float z) {
 }
 
 material materialAtPoint (int x, int y, int z) {
-    if (x < 0 || y < 0 || z < 0 || x >= WORLD_X_DIM || y >= WORLD_Y_DIM || z >= WORLD_Z_DIM) {
+    if (!coordinatesInWorld((float) x, (float) y, (float) z)) {
         //error
     }
-    //TODO add in z value
     return getMaterial(world[x][y][z]);
 }
 

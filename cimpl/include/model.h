@@ -77,7 +77,7 @@ material materialAtPoint (int x, int y, int z);
 /* 
  * Check that given player is in the bounds of loaded world.
  */
-char playerInWorld (player p);
+char coordinatesInWorld(float x, float y, float z);
 
 /*
  * Get the dimensions of the current loaded world.
